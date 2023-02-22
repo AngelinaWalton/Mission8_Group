@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "Task Form";
+}
+@model Form
+
+
+<h1>@ViewData["Title"]</h1>
+
+<form method="post">
+    <div asp-validation-summary="All"></div>
+
+    @*hidden taskid field to correlate movie with database record*@
+    <input asp-for="taskId" hidden />
+
+    <label>Task:</label>
+    <input id="task" asp-for="task" /><br /><br />
+
+    <label>Due Date:</label>
+    <input id="duedate" asp-for="dueDate" /><br /><br />
+
+    <label>Quadrant:</label>
+    <input type="number" id="quadrant" asp-for="quadrant" /><br /><br />
+
+    <label>Category:</label>
+    <select id="category" asp-for="categoryId">
+        <option value="">Select a Category</option>
+        @foreach (Category c in ViewBag.Categories)
+        {
+            <option value="@c.categoryId">@c.CategoryName</option>
+        }
+    </select><br /><br />
+
+    <label asp-for="completed">Completed:</label>
+    <select id="edited" asp-for="completed">
+        <option value="false">No</option>
+        <option value="true">Yes</option>
+    </select><br /><br />
+
+    <button type="submit" class="btn-primary">Save Task</button>
+    <a asp-controller="Home" asp-action="Quadrants" class="btn btn-danger">Cancel</a>
+</form>

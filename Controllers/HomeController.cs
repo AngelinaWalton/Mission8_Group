@@ -6,16 +6,17 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Mission8_Group.Models;
 
 namespace Mission8_Group.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private TaskContext taskContext { get; set; }
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(TaskContext tc)
         {
-            _logger = logger;
+            taskContext = tc;
         }
 
         public IActionResult Index()
@@ -23,9 +24,32 @@ namespace Mission8_Group.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Quadrants()
         {
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult TaskForm()
+        {
+            ViewBag.Categories = taskContext.Categories.ToList();
+            return View("TaskForm", new Form());
+        }
+
+        [HttpPost]
+        public IActionResult TaskForm(Form f)
+        {
+            if (ModelState.IsValid)
+            {
+                taskContext.Add(f);
+                taskContext.SaveChanges();
+                return RedirectToAction("TaskForm");
+            }
+            else
+            {
+                ViewBag.Categories = taskContext.Categories.ToList();
+                return View();
+            }
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

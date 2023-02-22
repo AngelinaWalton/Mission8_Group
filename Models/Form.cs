@@ -10,7 +10,7 @@ namespace Mission8_Group.Models
     {
         [Key]
         [Required]
-        public int taskid { get; set; }
+        public int taskId { get; set; }
         [Required(ErrorMessage = "Don't Forget to add a task!")]
         public string task { get; set; }
         public DateTime dueDate { get; set; }
