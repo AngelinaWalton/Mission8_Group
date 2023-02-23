@@ -26,7 +26,9 @@ namespace Mission8_Group.Controllers
 
         public IActionResult Quadrants()
         {
-            return View();
+            var diList = taskContext.Responses.ToList();
+
+            return View(diList);
         }
 
         [HttpGet]
@@ -51,6 +53,48 @@ namespace Mission8_Group.Controllers
                 return View();
             }
         }
+
+        //getter for the editing of fields
+        [HttpGet]
+        public IActionResult Edit(int taskId)
+        {
+            ViewBag.Categories = taskContext.Categories.ToList(); ;
+
+            var application = taskContext.Responses.Single(x => x.taskId == taskId);
+
+            return View("TaskForm", application);
+        }
+
+        //Post for the editing of fields
+        [HttpPost]
+        public IActionResult Edit(Form blah)
+        {
+            taskContext.Update(blah);
+            taskContext.SaveChanges();
+
+            return RedirectToAction("Quadrants");
+        }
+
+        //Getter for deleting
+        [HttpGet]
+        public IActionResult Delete(int taskId)
+        {
+            var application = taskContext.Responses.Single(x => x.taskId == taskId);
+
+            return View(application);
+        }
+
+        //Post for deleting
+        [HttpPost]
+        public IActionResult Delete(Form f)
+        {
+            taskContext.Responses.Remove(f);
+            taskContext.SaveChanges();
+
+            return RedirectToAction("Quadrants");
+        }
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
