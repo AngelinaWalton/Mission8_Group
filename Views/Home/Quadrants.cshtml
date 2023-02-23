@@ -2,6 +2,144 @@
     ViewData["Title"] = "Task Quadrants";
 }
 
+@model List<Form>
+
 <div>
     <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="TaskForm">New Task</a>
-</div><br />
+</div>
+
+<style>
+    .d-flex {
+        display: flex;
+        margin: 0 0px; /* remove default margin */
+    }
+
+        .d-flex table {
+            margin: 0 0px; /* add margin between tables */
+        }
+</style>
+
+
+<div class="d-flex">
+    <table class="table table-bordered table-striped table-hover" style="width:10%">
+        <thead class="font-weight-bold">
+            <tr>
+                <th></th>
+            </tr>
+        </thead>
+    </table>
+    <table class="table table-bordered table-striped table-hover" style="width:50%">
+        <thead class="font-weight-bold">
+            <tr>
+                <th>Urgant</th>
+            </tr>
+        </thead>
+    </table>
+    <table class="table table-bordered table-striped table-hover" style="width:50%">
+        <thead class="font-weight-bold">
+            <tr>
+                <th>Not Urgant</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+
+    <div class="d-flex">
+
+        <table class="table table-bordered table-striped table-hover" style="width:10%">
+            <thead class="font-weight-bold">
+                <tr>
+                    <th>Important</th>
+                </tr>
+            </thead>
+        </table>
+
+        <table class="table table-bordered table-striped table-hover" style="width:50%">
+            <thead class="font-weight-bold">
+                <tr>
+                    <th>Quadrant 1</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var x in Model.Where(x => x.quadrant == 1))
+                {
+                <tr>
+                    <td>@x.task</td>
+
+
+
+
+                    @*options*@
+                    <td><a asp-controller="Home" asp-action="Edit" asp-route-taskId="@x.taskId">Edit</a></td>
+                    <td><a asp-controller="Home" asp-action="Delete" asp-route-taskId="@x.taskId">Delete</a></td>
+                </tr>}</tbody>
+        </table>
+
+
+        <table class="table table-bordered table-striped table-hover" style="width:50%">
+            <thead class="font-weight-bold">
+                <tr>
+                    <th>Quadrant 2</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var x in Model.Where(x => x.quadrant == 2))
+                {
+                <tr>
+                    <td>@x.task</td>
+
+                    @*options*@
+                    <td><a asp-controller="Home" asp-action="Edit" asp-route-taskId="@x.taskId">Edit</a></td>
+                    <td><a asp-controller="Home" asp-action="Delete" asp-route-taskId="@x.taskId">Delete</a></td>
+                </tr>}</tbody>
+            </table>
+    </div>
+    <div class="d-flex">
+
+        <table class="table table-bordered table-striped table-hover" style="width:10%">
+            <thead class="font-weight-bold">
+                <tr>
+                    <th>Not Important</th>
+                </tr>
+            </thead>
+        </table>
+
+        <table class="table table-bordered table-striped table-hover" style="width:50%">
+            <thead class="font-weight-bold">
+                <tr>
+                    <th>Quadrant 3</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var x in Model.Where(x => x.quadrant == 3))
+                {
+                <tr>
+                    <td>@x.task</td>
+
+                    @*options*@
+                    <td><a asp-controller="Home" asp-action="Edit" asp-route-taskId="@x.taskId">Edit</a></td>
+                    <td><a asp-controller="Home" asp-action="Delete" asp-route-taskId="@x.taskId">Delete</a></td>
+                </tr>}</tbody>
+            </table>
+
+
+        <table class="table table-bordered table-striped table-hover" style="width:50%">
+            <thead class="font-weight-bold">
+                <tr>
+                    <th>Quadrant 4</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var x in Model.Where(x => x.quadrant == 4))
+                {
+                <tr>
+                    <td>@x.task</td>
+
+                    @*options*@
+                    <td><a asp-controller="Home" asp-action="Edit" asp-route-taskId="@x.taskId">Edit</a></td>
+                    <td><a asp-controller="Home" asp-action="Delete" asp-route-taskId="@x.taskId">Delete</a></td>
+                </tr>
+            }</tbody>
+            </table>
+    </div>
